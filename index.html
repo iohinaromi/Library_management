@@ -1193,20 +1193,18 @@
                     console.log('Service Worker登録成功:', registration);
                 })
                 .catch(error => {
-                    console.error('Service Worker登録失敗:', error);
+                    console.warn('Service Worker登録スキップ（オフライン機能は用いられません）:', error);
                 });
         }
 
         // ページ読み込み時
         document.addEventListener('DOMContentLoaded', () => {
-            // LocalStorage から SpreadsheetID を復元
-            const savedSpreadsheetId = localStorage.getItem('spreadsheetId');
-            if (savedSpreadsheetId) {
-                app.spreadsheetId = savedSpreadsheetId;
-                app.isInitialized = true;
-                document.getElementById('initSection').classList.remove('active');
-                app.switchTab('camera');
-            }
+            // 自動初期化（固定 SpreadsheetID を使用）
+            app.isInitialized = true;
+            app.spreadsheetId = '1sRt57cTTbBSyp9CkRh_wikK3yGk35uUFaIoANVwkYBM';
+            localStorage.setItem('spreadsheetId', app.spreadsheetId);
+            document.getElementById('initSection').classList.remove('active');
+            app.switchTab('camera');
         });
     </script>
 </body>
